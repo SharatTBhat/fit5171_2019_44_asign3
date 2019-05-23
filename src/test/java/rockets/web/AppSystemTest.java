@@ -40,7 +40,7 @@ public class AppSystemTest {
         try {
             stream = resource.getInputStream();
             properties.load(stream);
-            int port = Integer.parseInt(properties.getProperty("8081"));
+            int port = Integer.parseInt(properties.getProperty("spark.port"));
             JWebUnit.setBaseUrl("http://localhost:" + port);
 
             dbAddress = properties.getProperty("neo4j.dir");
