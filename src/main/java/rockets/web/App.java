@@ -282,6 +282,23 @@ public class App {
 
     // TODO: Need to TDD this
     private static void handleGetRocket() {
+        get("/rocket/:id", (req, res) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            User user = getLoggedInUser(req);
+            attributes.put("user", user);
+            try {
+                String id = req.params(":id");
+                Rocket rocket = dao.load(Rocket.class, Long.parseLong(id));
+                if (null != rocket) {
+                    attributes.put("rocket", rocket);
+                } else {
+                    attributes.put("errorMsg", "No user with the ID " + id + ".");
+                }
+                return new ModelAndView(attributes, "user.html.ftl");
+            } catch (Exception e) {
+                return handleException(res, attributes, e, "user.html.ftl");
+            }
+        }, new FreeMarkerEngine());
     }
 
     // TODO: Need to TDD this
