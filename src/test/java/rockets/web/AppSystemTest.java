@@ -112,7 +112,6 @@ public class AppSystemTest {
         );
     }
 
-    /**
     @Test
     public void shouldNotRecreateUser() {
         JWebUnit.beginAt("/");
@@ -142,7 +141,6 @@ public class AppSystemTest {
 
         JWebUnit.assertTextNotPresent("Welcome back: Jane Who!");
     }
-     **/
 
     @Test
     public void shouldHaveWelcomeInBasePage() {

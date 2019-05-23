@@ -1,5 +1,6 @@
 package rockets.web;
 
+import org.neo4j.cypher.InvalidArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rockets.dataaccess.DAO;
@@ -16,6 +17,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -144,6 +146,13 @@ public class App {
             attributes.put("lastName", lastName);
 
             logger.info("Registering <" + email + ">, " + password);
+
+            Collection<User> users = dao.loadAll(User.class);
+            for (User user: users) {
+                if (user.getEmail().equals(email)) {
+                    return new ModelAndView(attributes, "register.html.ftl");
+                }
+            }
 
             User user;
             try {

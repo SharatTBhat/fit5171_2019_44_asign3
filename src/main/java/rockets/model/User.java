@@ -53,7 +53,6 @@ public class User extends Entity {
         Pattern characterPattern=Pattern.compile("[a-zA-Z]+");
         Matcher numberMatcher=numberPattern.matcher(password);
         Matcher characterMather=characterPattern.matcher(password);
-
         this.password = password;
     }
 
