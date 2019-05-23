@@ -3,6 +3,8 @@ package rockets.model;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.apache.commons.lang3.Validate.notBlank;
 
@@ -46,6 +48,12 @@ public class User extends Entity {
     }
 
     public void setPassword(String password) {
+        notBlank(password, "password cannot be null or empty");
+        Pattern numberPattern=Pattern.compile("[0-9]+");
+        Pattern characterPattern=Pattern.compile("[a-zA-Z]+");
+        Matcher numberMatcher=numberPattern.matcher(password);
+        Matcher characterMather=characterPattern.matcher(password);
+
         this.password = password;
     }
 

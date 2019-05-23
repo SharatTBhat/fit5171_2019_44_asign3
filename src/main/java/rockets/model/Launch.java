@@ -5,10 +5,14 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static org.apache.commons.lang3.Validate.notBlank;
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
 
 @NodeEntity
@@ -55,6 +59,13 @@ public class Launch extends Entity {
     }
 
     public void setOrbit(String orbit) {
+        notBlank(orbit, "Orbit cannot be null or empty");
+        String regEx = "^[a-zA-Z]+[0-9]*";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(orbit);
+        if (!m.matches()) {
+            throw new IllegalArgumentException("Please using alphabetic characters");
+        }
         this.orbit = orbit;
     }
 
@@ -87,10 +98,25 @@ public class Launch extends Entity {
     }
 
     public void setLaunchSite(String launchSite) {
+        notBlank(launchSite, "Launch site cannot be null or empty");
+        String regEx = "^[a-zA-Z]+[0-9]*";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(launchSite);
+        if (!m.matches()) {
+            throw new IllegalArgumentException("Please using alphabetic characters");
+        }
         this.launchSite = launchSite;
     }
 
     public void setFunction(String function) {
+        notBlank(function, "Launch function cannot be null or empty");
+        String regEx = "^[a-zA-Z]+";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(function);
+        if (!m.matches()) {
+
+            throw new IllegalArgumentException("Please using alphabetic characters");
+        }
         this.function = function;
     }
 
@@ -103,6 +129,16 @@ public class Launch extends Entity {
     }
 
     public void setPrice(int price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException("Price should larger than 0");
+        }
+        String str = Integer.toString(price);
+        String regEx = "^[0-9]+[.]?[0-9]+";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        if (!m.matches()) {
+            throw new IllegalArgumentException("Please using double value");
+        }
         this.price = price;
     }
 
