@@ -10,6 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
 import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
@@ -49,6 +50,29 @@ public class Rocket extends Entity {
         super();
     }
 
+
+    private String familyName;
+
+    /**
+     * name, country, manufacturer parameters shouldn't be null.
+     *
+     * @param name
+     * @param country
+     * @param manufacturer
+     */
+    public Rocket(String name, String country, LaunchServiceProvider manufacturer, String familyName) {
+        notBlank(name, "Name cannot be null or empty");
+        notBlank(country, "Country cannot be null or empty");
+        if ( manufacturer == null ){
+            throw new NullPointerException("Manufacture cannot be null");
+        }
+
+        this.name = name;
+        this.country = country;
+        this.manufacturer = manufacturer;
+        this.familyName = familyName;
+    }
+
     public Rocket(String name, String country, LaunchServiceProvider manufacturer) {
         notNull(name);
         notNull(country);
@@ -60,6 +84,8 @@ public class Rocket extends Entity {
 
         this.launches = new LinkedHashSet<>();
     }
+
+
 
     public String getName() {
         return name;
