@@ -44,7 +44,14 @@ public class Launch extends Entity {
     private LaunchOutcome launchOutcome;
 
     @Property(name = "price")
-    private int price;
+    //private int price;
+    private BigDecimal price;
+
+    private Set<Payload> payloads;
+
+
+    private LaunchServiceProvider launchServiceProvider;
+
 
     public LocalDate getLaunchDate() {
         return launchDate;
@@ -69,13 +76,22 @@ public class Launch extends Entity {
         this.orbit = orbit;
     }
 
+    public LaunchServiceProvider getLaunchServiceProvider() {
+        return launchServiceProvider;
+    }
+
+    public void setLaunchServiceProvider(LaunchServiceProvider launchServiceProvider) {
+        this.launchServiceProvider = launchServiceProvider;
+    }
+
+
     public Rocket getLaunchVehicle() {
         return launchVehicle;
     }
 
-    public Set<String> getPayload() {
+   /* public Set<String> getPayload() {
         return payload;
-    }
+    }*/
 
     public String getLaunchSite() {
         return launchSite;
@@ -93,8 +109,16 @@ public class Launch extends Entity {
         return launchOutcome;
     }
 
-    public void setPayload(Set<String> payload) {
+    /*public void setPayload(Set<String> payload) {
         this.payload = payload;
+    }*/
+
+    public Set<Payload> getPayload() {
+        return payloads;
+    }
+
+    public void setPayload(Set<Payload> payload) {
+        this.payloads=payload;
     }
 
     public void setLaunchSite(String launchSite) {
@@ -124,15 +148,15 @@ public class Launch extends Entity {
         this.launchOutcome = launchOutcome;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        if (price <= 0) {
+    public void setPrice(BigDecimal price) {
+        if (price.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Price should larger than 0");
         }
-        String str = Integer.toString(price);
+        String str = price.toString();
         String regEx = "^[0-9]+[.]?[0-9]+";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
