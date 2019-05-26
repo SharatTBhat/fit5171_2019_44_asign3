@@ -99,7 +99,7 @@ class LaunchUnitTest {
     @DisplayName("should throw exception when pass negative or 0 value to set price")
     @ParameterizedTest
     @ValueSource(strings = {"-1", "0"})
-    public void shouldThrowIllegalArgumentExceptionWhenGivenNegativeInput(int price) {
+    public void shouldThrowIllegalArgumentExceptionWhenGivenNegativeInput(BigDecimal price) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> target.setPrice(price));
         assertEquals("Price should larger than 0", exception.getMessage());
     }
