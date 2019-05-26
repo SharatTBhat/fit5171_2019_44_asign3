@@ -29,7 +29,7 @@ public class Launch extends Entity {
     @Relationship(type = "PROVIDES", direction = INCOMING)
     private Rocket launchVehicle;
 
-    private Set<String> payload;
+   // private Set<String> payload;
 
     @Property(name = "launchSite")
     private String launchSite;
